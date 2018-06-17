@@ -20,3 +20,5 @@ c_main : obj/c_main.o obj/wrapper.o obj/lib.o
 
 clean : 
 	rm -f obj/c_main.o obj/cpp_main.o obj/lib.o obj/wrapper.o c_main cpp_main
+
+.PHONY: clean
