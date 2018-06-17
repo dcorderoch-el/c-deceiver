@@ -1,4 +1,4 @@
-all: c_main cpp_main
+all: cpp_main c_main c_main_lib
 	
 obj/c_main.o : c/c_main.c
 	gcc -c c/c_main.c -o obj/c_main.o
@@ -18,7 +18,13 @@ cpp_main : obj/cpp_main.o
 c_main : obj/c_main.o obj/wrapper.o obj/lib.o
 	g++ -o c_main obj/c_main.o obj/wrapper.o obj/lib.o
 
+liblib.a : obj/lib.o
+	ar rcs liblib.a obj/lib.o
+
+c_main_lib : liblib.a
+	g++ -o c_main_lib obj/c_main.o obj/wrapper.o -L. -llib
+
 clean : 
-	rm -f obj/c_main.o obj/cpp_main.o obj/lib.o obj/wrapper.o c_main cpp_main
+	rm -f obj/c_main.o obj/cpp_main.o obj/lib.o obj/wrapper.o c_main cpp_main c_main_lib liblib.a
 
 .PHONY: clean
